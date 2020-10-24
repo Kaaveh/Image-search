@@ -1,7 +1,8 @@
-package ir.kaaveh.imagesearch
+package ir.kaaveh.imagesearch.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ir.kaaveh.imagesearch.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

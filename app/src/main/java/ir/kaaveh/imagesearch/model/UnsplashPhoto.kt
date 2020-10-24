@@ -1,4 +1,4 @@
-package ir.kaaveh.imagesearch
+package ir.kaaveh.imagesearch.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
