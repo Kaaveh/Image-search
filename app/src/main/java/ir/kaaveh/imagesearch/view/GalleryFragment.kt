@@ -6,16 +6,19 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import ir.kaaveh.imagesearch.R
 import ir.kaaveh.imagesearch.adapter.UnsplashPhotoAdapter
 import ir.kaaveh.imagesearch.adapter.UnsplashPhotoLoadStateAdapter
 import ir.kaaveh.imagesearch.databinding.FragmentGalleryBinding
+import ir.kaaveh.imagesearch.model.UnsplashPhoto
 import ir.kaaveh.imagesearch.viewmodel.GalleryViewModel
 
 @AndroidEntryPoint
-class GalleryFragment : Fragment(R.layout.fragment_gallery) {
+class GalleryFragment : Fragment(R.layout.fragment_gallery),
+    UnsplashPhotoAdapter.OnItemClickListener {
 
     private val viewModel by viewModels<GalleryViewModel>()
     private var binding: FragmentGalleryBinding? = null
@@ -24,7 +27,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentGalleryBinding.bind(view)
-        val adapter = UnsplashPhotoAdapter()
+        val adapter = UnsplashPhotoAdapter(this)
         binding?.apply {
             recyclerView.setHasFixedSize(true)
             recyclerView.itemAnimator = null
@@ -51,7 +54,8 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
                 // empty view
                 if (loadState.source.refresh is LoadState.NotLoading &&
                     loadState.append.endOfPaginationReached &&
-                    adapter.itemCount < 1) {
+                    adapter.itemCount < 1
+                ) {
                     recyclerView.isVisible = false
                     textViewEmpty.isVisible = true
                 } else {
@@ -61,6 +65,14 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         }
 
         setHasOptionsMenu(true)
+    }
+
+    override fun onItemClick(photo: UnsplashPhoto) {
+        findNavController().navigate(
+            GalleryFragmentDirections.actionGalleryFragmentToDetailFragment(
+                photo
+            )
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

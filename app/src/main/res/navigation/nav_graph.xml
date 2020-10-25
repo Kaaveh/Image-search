@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/galleryFragment"
         android:name="ir.kaaveh.imagesearch.view.GalleryFragment"
-        android:label="fragment_gallery"
+        android:label="Gallery"
         tools:layout="@layout/fragment_gallery" >
         <action
             android:id="@+id/action_galleryFragment_to_detailFragment"
@@ -17,6 +17,10 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="ir.kaaveh.imagesearch.view.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        android:label="Photo"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="photo"
+            app:argType="ir.kaaveh.imagesearch.model.UnsplashPhoto" />
+    </fragment>
 </navigation>
